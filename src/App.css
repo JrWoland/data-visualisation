@@ -1,22 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: rgb(241, 241, 241);
+  font-family: 'Varela Round', sans-serif;
 
 }
 
 .App {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin: auto;
   text-align: center;
   width: 90vw;
   height: 100vh;
 }
 
+h1 {
+  padding-left: 20%;
+  line-height: 80px;
+  margin: 0;
+  color: #fff;
+  background-color: #90cf92;
+  border-bottom: 5px solid #4bac4e;
+}
+
 .App div.container {
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 30px;
+  position: relative;
   width: 65%;
   height: 300px;
   -webkit-box-shadow: 4px 4px 11px 2px rgba(201, 201, 201, 1);
   -moz-box-shadow: 4px 4px 11px 2px rgba(201, 201, 201, 1);
   box-shadow: 4px 4px 11px 2px rgba(201, 201, 201, 1);
+}
+
+.App div.container.currency {
+  width: 65%;
+  height: 2000px;
+}
+
+.App div.container .title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
 }

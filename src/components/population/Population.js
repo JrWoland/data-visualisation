@@ -31,6 +31,7 @@ const Population = (props) => {
 
     return (
         <div className='container'>
+            <p className='title'>Population in Poland 1960-2016</p>
             <ResponsiveLine
                 data={dataToDisplay}
                 margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -42,7 +43,7 @@ const Population = (props) => {
                     orient: 'bottom',
                     tickSize: 5,
                     tickPadding: 5,
-                    tickRotation: -60,
+                    tickRotation: -70,
                     legend: 'year',
                     legendOffset: 40,
                     legendPosition: 'middle'
