@@ -7,6 +7,7 @@ const Currency = (props) => {
 
 
   return (
+    <>
     <div className='container currency'>
       <p className='title'>The number of countries using a given currency</p>
       <ResponsiveBarCanvas
@@ -52,12 +53,13 @@ const Currency = (props) => {
         labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
         isInteractive={true}
       />
-      <div>
+    </div >
+      <div className="container summary">
         <h2>Summary</h2>
         <p>Number of countries: {props.data.numberOfCountries} (independent: {props.data.numberOfCountriesIndependent})</p>
         <p>Number of countries with EUR currency: {props.data.numberOfCountriesWithEURCurrency}</p>
       </div>
-    </div >
+      </>
   )
 
 }

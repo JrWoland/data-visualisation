@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Population from './components/population/Population';
 import Currency from './components/currency/Currency';
+import PopulationMixed from './components/populationmixed/Population-mixed';
 
 const pathPopulation = 'https://datahub.io/core/population/r/population.json';
 const pathCountryCodes = 'https://datahub.io/core/country-codes/r/country-codes.json';
@@ -9,8 +10,11 @@ const prefix = "https://cors-anywhere.herokuapp.com/";
 class App extends React.Component {
 
   state = {
-    population: 'POL',
-    populationData: [],
+    populationDataWorld: [],
+    populationDataPL: [],
+    populationDataUSA: [],
+    populationDataEMU: [], //Euro area
+    populationDataARB: [], //Arab world
     currencyData: [],
     numberOfCountries: 0,
     numberOfCountriesIndependent: 0,
@@ -20,7 +24,15 @@ class App extends React.Component {
   getData = () => {
     fetch(prefix + pathPopulation)
       .then(res => res.json())
-      .then(data => this.parsePopulationData(data))
+      .then(data => {
+        this.setState({
+          populationDataPL :this.parsePopulationData(data, 'POL'),
+          populationDataUSA :this.parsePopulationData(data, 'USA'),
+          populationDataEMU :this.parsePopulationData(data, 'EMU'),
+          populationDataARB :this.parsePopulationData(data, 'ARB'),
+          populationDataWorld: this.parseWorlGeoPopulation(data)
+        })
+      })
       .catch(err => console.log(err));
 
     fetch(prefix + pathCountryCodes)
@@ -29,9 +41,21 @@ class App extends React.Component {
       .catch(err => console.log(err))
   }
 
+  parseWorlGeoPopulation = (data, year = 2016)=> {
+    const populationData = data.filter(item => item['Year'] === year);
+    const parsedData = [];
 
-  parsePopulationData = (data) => {
-    const populationData = data.filter(item => item['Country Code'] === this.state.population);
+    populationData.forEach(element => {
+      parsedData.push({
+        'id': element['Country Code'],
+        'value': element.Value
+      })
+    });
+    return parsedData;
+  }
+
+  parsePopulationData = (data, countryCode) => {
+    const populationData = data.filter(item => item['Country Code'] === countryCode);
     const parsedData = [];
 
     populationData.forEach(element => {
@@ -40,9 +64,7 @@ class App extends React.Component {
         'y': element.Value / 1000000
       })
     });
-    this.setState({
-      populationData: parsedData
-    })
+    return parsedData;
   }
 
   parseCurrencyData = (data) => {
@@ -84,12 +106,14 @@ class App extends React.Component {
   }
 
   render() {
+    
     return (
       <>
         <header><h1>Data Dashboard</h1></header>
         <div className="App">
           <Population data={this.state} />
           <Currency data={this.state} sortBy={this.state.sortChartBy} />
+          <PopulationMixed data={this.state} />
         </div>
       </>
     );

@@ -1,42 +1,35 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
-import './Population.css'
+import './Population-mixed.css'
 
-// const data = [
-
-//     {
-//         "id": "japan",
-//         "color": "hsl(67, 70%, 50%)",
-//         "data": [
-//             {
-//                 x: 2000,
-//                 y: 242
-//             },
-//             {
-//                 "x": 2001,
-//                 "y": 200
-//             },
-
-//         ]
-//     }]
-const Population = (props) => {
+const PopulationMixed = (props) => {
 
     let dataToDisplay = [
         {
-            "id": "Poland",
+            "id": "Arab World",
+            "color": "hsl(183, 70%, 50%)",
+            "data": props.data.populationDataARB === undefined ? [{ x: 0, y: 0 }] : props.data.populationDataARB
+        },
+        {
+            "id": "USA",
             "color": "hsl(67, 70%, 50%)",
-            "data": props.data.populationDataPL === undefined ? [{ x: 0, y: 0 }] : props.data.populationDataPL
+            "data": props.data.populationDataUSA === undefined ? [{ x: 0, y: 0 }] : props.data.populationDataUSA
+        },
+        {
+            "id": "Europe",
+            "color": "hsl(127, 70%, 50%)",
+            "data": props.data.populationDataEMU === undefined ? [{ x: 0, y: 0 }] : props.data.populationDataEMU
         }
     ]
 
     return (
         <div className='container'>
-            <p className='title'>Population in Poland 1960-2016</p>
+            <p className='title'>Population USA, Europe and Arab World 1960-2016</p>
             <ResponsiveLine
                 data={dataToDisplay}
                 margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
                 xScale={{ type: 'point' }}
-                yScale={{ type: 'linear', stacked: true, min: 'auto', max: 'auto' }}
+                yScale={{ type: 'linear', stacked: false, min: 'auto', max: 'auto' }}
                 axisTop={null}
                 axisRight={null}
                 axisBottom={{
@@ -65,6 +58,7 @@ const Population = (props) => {
                 pointBorderColor={{ from: 'serieColor' }}
                 pointLabel="y"
                 pointLabelYOffset={-12}
+                enableSlices="x"
                 useMesh={true}
                 legends={[
                     {
@@ -97,4 +91,4 @@ const Population = (props) => {
     )
 }
 
-export default Population;
+export default PopulationMixed;
