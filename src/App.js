@@ -3,6 +3,7 @@ import './App.css';
 import Population from './components/population/Population';
 import Currency from './components/currency/Currency';
 import PopulationMixed from './components/populationmixed/Population-mixed';
+import Geomap from './components/geomap/Geomap';
 
 const pathPopulation = 'https://datahub.io/core/population/r/population.json';
 const pathCountryCodes = 'https://datahub.io/core/country-codes/r/country-codes.json';
@@ -51,6 +52,8 @@ class App extends React.Component {
         'value': element.Value
       })
     });
+    console.log(parsedData);
+    
     return parsedData;
   }
 
@@ -114,6 +117,7 @@ class App extends React.Component {
           <Population data={this.state} />
           <Currency data={this.state} sortBy={this.state.sortChartBy} />
           <PopulationMixed data={this.state} />
+          <Geomap data={this.state}/>
         </div>
       </>
     );
