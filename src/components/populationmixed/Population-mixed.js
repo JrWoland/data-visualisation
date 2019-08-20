@@ -18,7 +18,7 @@ const PopulationMixed = (props) => {
         {
             "id": "Europe",
             "color": "hsl(127, 70%, 50%)",
-            "data": props.data.populationDataEMU === undefined ? [{ x: 0, y: 0 }] : props.data.populationDataEMU
+            "data": props.data.populationDataEUU === undefined ? [{ x: 0, y: 0 }] : props.data.populationDataEUU
         }
     ]
 

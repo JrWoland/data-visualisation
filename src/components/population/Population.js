@@ -2,23 +2,6 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 import './Population.css'
 
-// const data = [
-
-//     {
-//         "id": "japan",
-//         "color": "hsl(67, 70%, 50%)",
-//         "data": [
-//             {
-//                 x: 2000,
-//                 y: 242
-//             },
-//             {
-//                 "x": 2001,
-//                 "y": 200
-//             },
-
-//         ]
-//     }]
 const Population = (props) => {
 
     let dataToDisplay = [

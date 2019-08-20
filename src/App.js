@@ -14,7 +14,7 @@ class App extends React.Component {
     populationDataWorld: [],
     populationDataPL: [],
     populationDataUSA: [],
-    populationDataEMU: [], //Euro area
+    populationDataEUU: [], //Euro area
     populationDataARB: [], //Arab world
     currencyData: [],
     numberOfCountries: 0,
@@ -27,10 +27,10 @@ class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          populationDataPL :this.parsePopulationData(data, 'POL'),
-          populationDataUSA :this.parsePopulationData(data, 'USA'),
-          populationDataEMU :this.parsePopulationData(data, 'EMU'),
-          populationDataARB :this.parsePopulationData(data, 'ARB'),
+          populationDataPL: this.parsePopulationData(data, 'POL'),
+          populationDataUSA: this.parsePopulationData(data, 'USA'),
+          populationDataEUU: this.parsePopulationData(data, 'EUU'),
+          populationDataARB: this.parsePopulationData(data, 'ARB'),
           populationDataWorld: this.parseWorlGeoPopulation(data)
         })
       })
@@ -42,7 +42,7 @@ class App extends React.Component {
       .catch(err => console.log(err))
   }
 
-  parseWorlGeoPopulation = (data, year = 2016)=> {
+  parseWorlGeoPopulation = (data, year = 2016) => {
     const populationData = data.filter(item => item['Year'] === year);
     const parsedData = [];
 
@@ -52,8 +52,7 @@ class App extends React.Component {
         'value': element.Value
       })
     });
-    console.log(parsedData);
-    
+
     return parsedData;
   }
 
@@ -109,7 +108,7 @@ class App extends React.Component {
   }
 
   render() {
-    
+
     return (
       <>
         <header><h1>Data Dashboard</h1></header>
@@ -117,7 +116,7 @@ class App extends React.Component {
           <Population data={this.state} />
           <Currency data={this.state} sortBy={this.state.sortChartBy} />
           <PopulationMixed data={this.state} />
-          <Geomap data={this.state}/>
+          <Geomap data={this.state} />
         </div>
       </>
     );

@@ -3,9 +3,6 @@ import { ResponsiveBarCanvas } from '@nivo/bar';
 import './Currency.css'
 
 const Currency = (props) => {
-
-
-
   return (
     <>
       <div className='container currency'>
