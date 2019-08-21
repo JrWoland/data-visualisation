@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
+import countriesJSON from './components/cities/countriesSouthAmerica.json'
 import Population from './components/population/Population';
 import Currency from './components/currency/Currency';
 import PopulationMixed from './components/populationmixed/Population-mixed';
 import Geomap from './components/geomap/Geomap';
+import Cities from './components/cities/Cities';
 
 const pathPopulation = 'https://datahub.io/core/population/r/population.json';
 const pathCountryCodes = 'https://datahub.io/core/country-codes/r/country-codes.json';
+const pathCities = 'https://datahub.io/core/world-cities/r/world-cities.json';
 const prefix = "https://cors-anywhere.herokuapp.com/";
 class App extends React.Component {
 
@@ -19,7 +22,8 @@ class App extends React.Component {
     currencyData: [],
     numberOfCountries: 0,
     numberOfCountriesIndependent: 0,
-    numberOfCountriesWithEURCurrency: 0
+    numberOfCountriesWithEURCurrency: 0,
+    cities: []
   }
 
   getData = () => {
@@ -40,6 +44,24 @@ class App extends React.Component {
       .then(res => res.json())
       .then(data => this.parseCurrencyData(data))
       .catch(err => console.log(err))
+
+    fetch(prefix + pathCities)
+      .then(res => res.json())
+      .then(data => this.setState({ cities: this.parseNumbersOfCities(data) }))
+      .catch(err => console.log(err))
+  }
+
+  parseNumbersOfCities = (data) => {
+    let namesOfCountries = countriesJSON.map(item => item = item["CLDR display name"]);
+    let numbersOfCities = [];
+    namesOfCountries.forEach(country => {
+      let number = data.filter(item => item['country'] === country)
+      numbersOfCities.push({
+        country: country,
+        cities: number.length
+      })
+    });
+    return numbersOfCities;
   }
 
   parseWorlGeoPopulation = (data, year = 2016) => {
@@ -116,6 +138,7 @@ class App extends React.Component {
           <Population data={this.state} />
           <Currency data={this.state} sortBy={this.state.sortChartBy} />
           <PopulationMixed data={this.state} />
+          <Cities data={this.state} />
           <Geomap data={this.state} />
         </div>
       </>
